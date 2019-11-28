@@ -1,0 +1,13 @@
+FROM ubuntu:latest
+
+RUN apt-get update -y \
+	&& apt-get install -y \
+		parted \
+		wget \
+	&& rm -rf /var/lib/apt/lists/*
+
+WORKDIR /var/pishrink
+RUN wget https://raw.githubusercontent.com/Drewsif/PiShrink/master/pishrink.sh
+
+ENTRYPOINT ["bash", "./pishrink.sh"]
+
