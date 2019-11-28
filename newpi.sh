@@ -19,13 +19,15 @@ shift $((OPTIND -1))
 
 #####################################################
 
+step=1
 function say() {
   if [[ "$QUIET" != 1 ]]; then
     echo ""
-    echo "################################"
-    echo "##  $1"
-    echo "################################"
+    echo "#####################################"
+    echo "##  ${step}. $1"
+    echo "#####################################"
     echo ""
+    let "step++"
   fi
 }
 
@@ -85,8 +87,6 @@ if [[ "$DRY_RUN" == 1 ]]; then
   echo "Would run: systemctl enable networking"
 else
   echo -e "$NETWORK_CONFIG" >> "$DHCPCD_CONF_FILE"
-  systemctl disable dhcpcd
-  systemctl enable networking
 fi
 
 # n. Install packages
