@@ -46,6 +46,7 @@ if [[ "$DRY_RUN" == 1 ]]; then
 else
   echo "$HOSTNAME" > "$HOSTNAME_FILE"
   echo "$REPLACED_HOSTS_CONTENT" > "$HOSTS_FILE"
+  echo "done"
 fi
 
 # n. Set aliases
@@ -58,6 +59,7 @@ else
 alias rp='source ~/.profile'
 alias ll='ls -lA --color'
 EOF
+  echo "done"
 fi
 
 # n. Set variables
@@ -72,6 +74,7 @@ else
 export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n> "
 export PS2="\[\033[1;33m\]→ \[\033[m\]"
 EOF
+  echo "done"
 fi
 
 # n. Set network
@@ -83,10 +86,9 @@ NETWORK_CONFIG="interface eth0\nstatic ip_address=${IP_ADDRESS}/24\nstatic route
 if [[ "$DRY_RUN" == 1 ]]; then
   echo "Would add the following to ${DHCPCD_CONF_FILE}:"
   echo -e "$NETWORK_CONFIG"
-  echo "Would run: systemctl disable dhcpcd"
-  echo "Would run: systemctl enable networking"
 else
   echo -e "$NETWORK_CONFIG" >> "$DHCPCD_CONF_FILE"
+  echo "done"
 fi
 
 # n. Install packages
